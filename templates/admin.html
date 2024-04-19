@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .navbar-custom {
+            background-color: #ffffff;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .navbar-custom .navbar-brand {
+            font-weight: bold;
+            color: #007bff;
+            font-size: 1.5rem;
+        }
+        .navbar-custom .nav-link {
+            color: #333333;
+        }
+        .navbar-custom .nav-link:hover {
+            color: #007bff;
+        }
+        .card {
+            border: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        .section-divider {
+            border-top: 2px solid #007bff;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+        .footer {
+            background-color: #343a40;
+            color: #ffffff;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Upper Section -->
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" style="max-height: 60px;">
+            Assign-FS
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/admin">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/class_students">Class-wise Student List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin_profile">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Body Section -->
+<div class="container mt-5">
+    <div class="row">
+        <!-- Create Assignment Card -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Create Assignment</h5>
+                    <img src="https://images.unsplash.com/photo-1446329360995-b4642a139973?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGNyZWF0ZSUyMGFzc2Vzc21lbnR8ZW58MHx8MHx8fDA%3D" class="card-img-top" alt="Assignment Image">
+                    <a href="/assign_assignment" class="btn btn-primary mt-3">Create</a>
+                </div>
+            </div>
+        </div>
+        <!-- Check Submission Card -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Check Submission</h5>
+                    <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXNzZXNzbWVudHxlbnwwfHwwfHx8MA%3D%3D" class="card-img-top" alt="Submission Image">
+                    <a href="/check_status" class="btn btn-primary mt-3">Check</a>
+                </div>
+            </div>
+        </div>
+        <!-- Generate Report Card -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Generate Report</h5>
+                    <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Z2VuZXJhdGUlMjByZXBvcnR8ZW58MHx8MHx8fDA%3D" class="card-img-top" alt="Report Image">
+                    <a href="/check_plagiarism" class="btn btn-primary mt-3">Generate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Section Divider -->
+<div class="section-divider"></div>
+
+<!-- Footer Section -->
+<footer class="footer mt-0 mb-0 py-3">
+    <div class="container text-center">
+        <span>Developed by Adarsh</span>
+    </div>
+</footer>
+
+<!-- Include Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

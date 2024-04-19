@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR - Document Upload</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+            color: #2d3748;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background-color: #4a5568;
+            color: #ffffff;
+            padding: 1.5rem;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .profile-dropdown {
+            position: relative;
+        }
+
+        .profile-dropdown button {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .profile-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 160px;
+            background-color: #ffffff;
+            border: 1px solid #cbd5e0;
+            border-radius: 0.25rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            z-index: 10;
+            display: none;
+        }
+
+        .profile-dropdown-menu a {
+            display: block;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            color: #4a5568;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .profile-dropdown-menu a:hover {
+            background-color: #edf2f7;
+        }
+
+        .upload-form {
+            margin-top: 2rem;
+        }
+
+        .upload-input {
+            border: 1px solid #cbd5e0;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            transition: border-color 0.3s ease;
+            width: 100%;
+        }
+
+        .upload-input:focus {
+            border-color: #4a5568;
+        }
+
+        .upload-btn {
+            background-color: #4c51bf;
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin-top: 1rem;
+        }
+
+        .upload-btn:hover {
+            background-color: #4338ca;
+        }
+
+        .result {
+            margin-top: 2rem;
+        }
+
+        .result h2 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .result p {
+            margin-top: 0.5rem;
+            color: #4a5568;
+            word-wrap: break-word;
+        }
+
+        .download-link {
+            display: inline-block;
+            margin-top: 0.5rem;
+            color: #4c51bf;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            margin-right: 1rem;
+        }
+
+        .download-link:hover {
+            color: #4338ca;
+        }
+
+        .dashboard-link {
+            display: inline-block;
+            background-color: #4c51bf;
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .dashboard-link:hover {
+            background-color: #4338ca;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Assign-FS Logo" width="40" height="40"
+                    class="mr-2">
+                <h1>Assign-FS</h1>
+            </div>
+            <div class="profile-dropdown">
+                <button id="profileBtn">
+                    <img src="{{ url_for('static', filename='img1.jpg') }}" alt="Profile Image"
+                        class="h-8 w-8 rounded-full">
+                </button>
+                <div id="profileDropdown" class="profile-dropdown-menu">
+                    <a href="/profile">Profile</a>
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto">
+        <h1 class="text-3xl font-bold mt-8">OCR - Document Upload</h1>
+
+        <form action="/ocr" method="POST" enctype="multipart/form-data" class="upload-form mt-8">
+            <input type="file" name="file" accept=".png, .jpg, .jpeg, .gif, .webp, .pdf" class="upload-input">
+            <button type="submit" class="upload-btn mt-2">Upload & Perform OCR</button>
+        </form>
+
+        {% if ocr_result %}
+        <div class="result mt-8">
+            <h2 class="text-xl font-semibold">OCR Result:</h2>
+            <p class="mt-2">{{ ocr_result }}</p>
+            <a href="{{ text_file_url }}" download="extracted_text.txt" class="download-link mt-2">Download Extracted
+                Text</a>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="container mx-auto mt-8">
+        <a href="/dashboard" class="dashboard-link">Go to Dashboard</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const profileBtn = document.getElementById('profileBtn');
+            const profileDropdown = document.getElementById('profileDropdown');
+    
+            profileBtn.addEventListener('click', function () {
+                profileDropdown.classList.toggle('hidden');
+            });
+    
+            // Close the dropdown when clicking outside of it
+            document.addEventListener('click', function (event) {
+                if (!profileBtn.contains(event.target)) {
+                    profileDropdown.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

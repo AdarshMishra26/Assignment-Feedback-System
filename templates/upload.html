@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Assignment</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<style>
+    /* Custom styles */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f3f4f6;
+        color: #2d3748;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .header {
+        background-color: #4a5568;
+        color: #ffffff;
+        padding: 1.5rem;
+    }
+
+    .header h1 {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .profile-dropdown {
+        position: relative;
+    }
+
+    .profile-dropdown button {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+
+    .profile-dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 160px;
+        background-color: #ffffff;
+        border: 1px solid #cbd5e0;
+        border-radius: 0.25rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        z-index: 10;
+        display: none;
+    }
+
+    .profile-dropdown-menu a {
+        display: block;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        color: #4a5568;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .profile-dropdown-menu a:hover {
+        background-color: #edf2f7;
+    }
+
+    .upload-form {
+        margin-top: 2rem;
+    }
+
+    .upload-input {
+        border: 1px solid #cbd5e0;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        transition: border-color 0.3s ease;
+        width: 100%;
+    }
+
+    .upload-input:focus {
+        border-color: #4a5568;
+    }
+
+    .upload-btn {
+        background-color: #4c51bf;
+        color: #ffffff;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        display: block;
+        margin-top: 1rem;
+    }
+
+    .upload-btn:hover {
+        background-color: #4338ca;
+    }
+
+    .result {
+        margin-top: 2rem;
+    }
+
+    .result h2 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+
+    .result p {
+        margin-top: 0.5rem;
+        color: #4a5568;
+        word-wrap: break-word;
+    }
+
+    .download-link {
+        display: inline-block;
+        margin-top: 0.5rem;
+        color: #4c51bf;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        margin-right: 1rem;
+    }
+
+    .download-link:hover {
+        color: #4338ca;
+    }
+
+    .dashboard-link {
+        display: inline-block;
+        background-color: #4c51bf;
+        color: #ffffff;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        text-decoration: none;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        margin-top: 1rem;
+    }
+
+    .dashboard-link:hover {
+        background-color: #4338ca;
+    }
+</style>
+<body class="bg-gray-100 font-sans">
+    <header class="bg-gray-800 text-white py-4">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Assign-FS Logo" width="40" height="40" class="mr-2">
+                <h1 class="text-lg font-bold">Assign-FS</h1>
+            </div>
+            <div class="relative">
+                <button id="profileBtn" class="flex items-center focus:outline-none">
+                    <img src="{{ url_for('static', filename='img1.jpg') }}" alt="Profile Image" class="h-8 w-8 rounded-full">
+                </button>
+                <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
+                    <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                    <a href="{{ url_for('logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto my-8">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h1 class="text-2xl font-semibold mb-4">Submit Assignment</h1>
+            <form id="uploadForm" method="post" enctype="multipart/form-data" class="space-y-4">
+                <div>
+                    <label for="fileToUpload" class="block text-gray-700">Select Assignment File:</label>
+                    <input type="file" name="fileToUpload" id="fileToUpload" class="mt-1">
+                </div>
+                <div>
+                    <label for="assignment_id" class="block text-gray-700">Select Assignment ID:</label>
+                    <select id="assignment_id" name="assignment_id" class="mt-1">
+                        {% for assignment in assignment_list %}
+                        <option value="{{ assignment.assignment_id }}">{{ assignment.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div class="container mx-auto mt-8">
+        <a href="/dashboard" class="dashboard-link">Go to Dashboard</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#uploadForm').submit(function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                var formData = new FormData(this);
+
+                // Send the form data using AJAX
+                $.ajax({
+                    url: '/submit_assignment1',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        // Show a popup message when the assignment is uploaded successfully
+                        alert('Assignment uploaded successfully');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                        alert('Error uploading assignment');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const profileBtn = document.getElementById('profileBtn');
+            const profileDropdown = document.getElementById('profileDropdown');
+
+            profileBtn.addEventListener('click', function () {
+                profileDropdown.classList.toggle('hidden');
+            });
+        });
+    </script>
+</body>
+
+</html>

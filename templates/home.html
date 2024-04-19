@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assign-FS</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/static/logo.png">
+    <style>
+.button {
+  position: relative;
+  width: 120px;
+  height: 40px;
+  background-color: #000;
+ 
+  align-items: center;
+  color: white;
+  flex-direction: column;
+  justify-content: center;
+  border: none;
+  padding: 12px;
+  gap: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  left: -4px;
+  top: -1px;
+  margin: auto;
+  width: 128px;
+  height: 48px;
+  border-radius: 10px;
+  background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );
+  z-index: -10;
+  pointer-events: none;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.button::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100% );
+  transform: translate3d(0, 0, 0) scale(0.95);
+  filter: blur(20px);
+}
+
+.button:hover::after {
+  filter: blur(30px);
+}
+
+.button:hover::before {
+  transform: rotate(-180deg);
+}
+
+.button:active::before {
+  scale: 0.7;
+}
+
+
+
+        .bg-custom-gray {
+            background-color: #f3f4f6; /* Change to your desired grayish color */
+        }
+        .body-content {
+            max-width: 1200px; /* Adjust the maximum width as per your design */
+            margin: 140px auto 0; /* Added margin-top to accommodate fixed header */
+            padding: 0 20px; /* Adjust the padding as per your design */
+        }
+        .card {
+            margin-bottom: 30px;
+        }
+        .header-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999; /* Adjust z-index as needed */
+            background-color: #f3f4f6; /* Change to your desired background color */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better visibility */
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div class="header-container bg-custom-gray py-4 px-4 md:py-8 md:px-12 flex flex-col md:flex-row justify-between items-center">
+        <!-- Logo and MediConnect name -->
+        <div class="flex items-center space-x-4">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="MediConnect Logo" class="w-12 h-12">
+            <span class="text-black text-lg font-semibold italic underline">Assign-FS</span>
+        </div>
+        <!-- Login, Signup, and About the Developers buttons -->
+        <div class="mt-4 md:mt-0 space-x-6">
+          <button class="button"><a href="/login" >Login</a></button>
+           <button class="button"><a href="/signup" >Signup</a></button> 
+            
+        </div>
+    </div>
+
+    <!-- Body section -->
+    <div class="body-content text-center">
+        <h1 class="text-black font-bold text-3xl md:text-4xl mt-10 md:mt-14 mb-6 md:mb-8">Revolutionizing Academic Integrity with Technology</h1>
+        <p class="text-gray-700 text-lg mb-6 md:mb-8">Welcome to Assign-FS, the innovative platform that transforms the landscape of academic integrity through advanced technology. Our mission is to provide a comprehensive solution for educators and institutions to ensure the authenticity and originality of student assignments.
+
+            With Assign-FS, educators can now effortlessly check assignments against plagiarism reports, ensuring fairness and upholding academic standards. Our platform integrates seamlessly with existing academic systems, streamlining the process and saving valuable time for educators.</p>
+        <img src="{{ url_for('static', filename='img1.png') }}" alt="MediConnect Image" class="my-8 mx-auto">
+
+        <!-- Services provided -->
+        <h2 class="text-black font-bold text-2xl md:text-3xl mb-4 md:mb-6">Services We Provide</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-12">
+            <!-- Card 1: Medical Profile -->
+            <div class="card bg-gray-200 p-6 md:p-8 rounded-lg">
+                <h3 class="text-black font-semibold text-lg md:text-xl mb-3 md:mb-4"> Plagiarism Detection</h3>
+                <p class="text-gray-700">At Assign-FS, we offer cutting-edge plagiarism detection services to ensure academic integrity and authenticity. Our advanced algorithm meticulously scans submitted assignments, comparing them against a vast repository of sources to identify any instances of plagiarism. With our comprehensive reports, educators can confidently assess the originality of student work and take appropriate action to uphold academic standards.</p>
+            </div>
+            <!-- Card 2: Emergency Data -->
+            <div class="card bg-gray-200 p-6 md:p-8 rounded-lg">
+                <h3 class="text-black font-semibold text-lg md:text-xl mb-3 md:mb-4">Assignment Feedback and Evaluation</h3>
+                <p class="text-gray-700">We provide a platform for educators to deliver detailed feedback and evaluation on student assignments. With Assign-FS, educators can easily annotate and comment on submitted work, providing valuable insights and guidance to students. Our platform facilitates constructive dialogue between educators and learners, fostering continuous improvement and academic growth</p>
+            </div>
+            <!-- Card 3: Aadhar Integration -->
+            <div class="card bg-gray-200 p-6 md:p-8 rounded-lg">
+                <h3 class="text-black font-semibold text-lg md:text-xl mb-3 md:mb-4"> Secure Data Handling</h3>
+                <p class="text-gray-700">At Assign-FS, we prioritize the security and confidentiality of user data. Our platform employs state-of-the-art encryption protocols and follows stringent privacy standards to ensure that sensitive information remains protected at all times. Users can trust that their data is handled securely, providing peace of mind when using our services.</p>
+            </div>
+            <!-- Card 4: Virtual Consultations -->
+            <div class="card bg-gray-200 p-6 md:p-8 rounded-lg">
+                <h3 class="text-black font-semibold text-lg md:text-xl mb-3 md:mb-4">Customizable Settings and Reporting</h3>
+                <p class="text-gray-700">We understand that every educational institution has unique requirements and preferences when it comes to plagiarism detection and reporting. That's why we offer customizable settings and reporting options to suit the needs of our users. Whether it's adjusting similarity thresholds, selecting specific sources for comparison, or tailoring report formats, Assign-FS empowers educators to customize their experience according to their specific preferences and requirements.</p>
+            </div>
+        </div>
+
+        <!-- Section: Saving Lives with Rapid Access to Medical History -->
+        <div class="mt-12 md:mt-16 flex flex-col md:flex-row items-center justify-center md:justify-between">
+            <!-- Text Content -->
+            <div class="md:w-1/2 mb-6 md:mb-0">
+                <h2 class="text-black font-bold text-2xl md:text-3xl mb-4 md:mb-6">Empowering Academic Integrity with Rapid Access to Assignment Information</h2>
+                <p class="text-gray-700 mb-4 md:mb-6">In the academic world, maintaining integrity and authenticity in student assignments is paramount. At Assign-FS, we're committed to harnessing technology to ensure that educators have rapid access to crucial assignment information when evaluating student work. Here are two key ways we're making a difference:</p>
+                <!-- Points with Innovative Arrows -->
+                <div class="flex flex-col md:flex-row items-center mb-4 md:mb-6">
+                    <div class="flex items-center md:mr-6">
+                        <img src="https://img.icons8.com/ios/50/000000/long-arrow-right.png"/>
+                        <p class="ml-2 text-gray-700">Comprehensive Assignment Database</p>
+                    </div>
+                    <div class="flex items-center mt-2 md:mt-0">
+                        <img src="https://img.icons8.com/ios/50/000000/long-arrow-right.png"/>
+                        <p class="ml-2 text-gray-700">Seamless Integration with Academic Systems</p>
+                    </div>
+                </div>
+                <!-- Read More Button -->
+                <button class="bg-yellow-400 px-6 py-2 md:px-8 md:py-3 rounded hover:bg-yellow-500">Read More</button>
+            </div>
+            <!-- Image -->
+            <div class="md:w-1/2 mb-6">
+                <img src="{{ url_for('static', filename='img2.png') }}" alt="MediConnect Image 2">
+            </div>
+        </div>
+
+        <button class="button"><a href="/developer">About US</a></button>
+        </div>
+        
+
+        <!-- Footer -->
+        <footer class="bg-custom-gray text-center py-4 mt-8">
+            <p>@2024 | All Right Reserved | Assign-FS</p>
+        </footer>
+    </div>
+</body>
+</html>

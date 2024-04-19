@@ -1,0 +1,9 @@
+click
+Flask
+Flask-Mail
+Flask-PyMongo
+itsdangerous
+Jinja2
+MarkupSafe
+pymongo
+Werkzeug

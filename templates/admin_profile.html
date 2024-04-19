@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        /* Custom Styles */
+        .header {
+            background-color: #4b5563;
+        }
+
+        .header .title {
+            color: #f3f4f6;
+        }
+
+        input[type='text'],
+        input[type='email'] {
+            background-color: #edf2f7;
+        }
+
+        input[type='text']:read-only,
+        input[type='email']:read-only {
+            background-color: #f7fafc;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <div class="header py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-center mb-8">
+                <div class="logo mr-4">
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="Assign-FS Logo" width="80"
+                        height="80">
+                </div>
+                <div class="title text-3xl font-bold">Assign-FS</div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <div class="container mx-auto mt-8">
+            <h1 class="text-2xl font-semibold mb-4">Profile</h1>
+            <div class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700">Name:</label>
+                    <input type="text" value="{{ user.name }}"
+                        class="mt-1 px-3 py-2 border border-gray-300 rounded-md w-full" readonly>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700">College Email:</label>
+                    <input type="email" value="{{ user.college_email }}"
+                        class="mt-1 px-3 py-2 border border-gray-300 rounded-md w-full" readonly>
+                </div>
+                <form id="profileForm" action="/profile" method="POST">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Contact Number:</label>
+                        <input type="text" name="contact_number"
+                            value="{{ user.contact_number }}"
+                            class="mt-1 px-3 py-2 border border-gray-300 rounded-md w-full">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Branch:</label>
+                        <input type="text" name="branch" value="{{ user.branch }}"
+                            class="mt-1 px-3 py-2 border border-gray-300 rounded-md w-full">
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <button id="saveBtn" type="submit"
+                            class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Save</button>
+                        <!-- Button to navigate back to the dashboard -->
+                        <a href="/admin"
+                            class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">Go to
+                            Dashboard</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-300 py-4 mt-auto">
+        <div class="container mx-auto px-4 text-center">
+            Developed by Adarsh
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const profileForm = document.getElementById('profileForm');
+            profileForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const formData = new FormData(profileForm);
+                // Send an AJAX request to save the data
+                fetch('/admin_profile', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            // Redirect to profile page after saving
+                            window.location.href = '/admin_profile';
+                        } else {
+                            console.error('Failed to save profile data.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error occurred while saving profile data:', error);
+                    });
+            });
+        });
+    </script>
+</body>
+
+</html>

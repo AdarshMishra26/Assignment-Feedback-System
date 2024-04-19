@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom Styles */
+        .navbar-custom {
+            background-color: #f8f9fa;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        .navbar-custom .navbar-brand {
+            font-weight: bold;
+            color: #007bff;
+            font-size: 1.5rem;
+        }
+
+        .navbar-custom .nav-link {
+            color: #333333;
+        }
+
+        .navbar-custom .nav-link:hover {
+            color: #007bff;
+        }
+
+        .table {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .table th,
+        .table td {
+            border-top: none;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .section-divider {
+            border-top: 2px solid #007bff;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: #ffffff;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Upper Section -->
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+        <div class="container">
+            <a class="navbar-brand" href="#"><img src="{{ url_for('static', filename='logo.png') }}" alt="Logo"
+                    style="max-height: 60px;"></a>
+            <span class="navbar-brand">Assign-FS</span>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/admin">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/list">Class-wise Student List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin_profile">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Body Section -->
+    <div class="container mt-5">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Roll No.</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Student List -->
+                    <tr>
+                        <td>2103943</td>
+                        <td>John Doe</td>
+                        <td>{{ result }}</td>
+                    </tr>
+                    <tr>
+                        <td>2103944</td>
+                        <td>Jane Smith</td>
+                        <td>{{ result }}</td>
+                    </tr>
+                    <tr>
+                        <td>2103945</td>
+                        <td>Alice Johnson</td>
+                        <td>{{ result }}</td>
+                    </tr>
+                    <tr>
+                        <td>2103946</td>
+                        <td>Bob Williams</td>
+                        <td>{{ result }}</td>
+                    </tr>
+                    <tr>
+                        <td>2103947</td>
+                        <td>Emily Brown</td>
+                        <td>{{ result }}</td>
+                    </tr>
+                    <tr>
+                        <td>2103948</td>
+                        <td>Michael Davis</td>
+                        <td>{{ result }}</td>
+                    </tr>
+                    <tr>
+                        <td>2103949</td>
+                        <td>Sophia Wilson</td>
+                        <td>{{ result }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- Footer Section -->
+    <footer class="footer mt-auto py-3">
+        <div class="container text-center">
+            <span>Developed by Adarsh</span>
+        </div>
+    </footer>
+
+</body>
+
+</html>

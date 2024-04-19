@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: linear-gradient(to right, #4facfe, #00f2fe);
+        }
+
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            max-width: 400px;
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+        }
+
+        .card-title {
+            font-size: 2rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333333;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #dddddd;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: #4facfe;
+            outline: none;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4facfe;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #00f2fe;
+        }
+
+        .error-message {
+            color: #ff3333;
+            font-size: 0.875rem;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="container">
+        <div class="card">
+            <h2 class="card-title">Verify OTP</h2>
+            {% if error %}
+            <div class="error-message">{{ error }}</div>
+            {% endif %}
+            <form action="/verify_signup_otp" method="POST">
+                <input type="hidden" name="remember" value="true">
+                <div>
+                    <input id="otp" name="otp" type="text" required placeholder="Enter OTP"
+                        class="form-input">
+                </div>
+                <div>
+                    <button type="submit" class="btn-primary">Verify OTP</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

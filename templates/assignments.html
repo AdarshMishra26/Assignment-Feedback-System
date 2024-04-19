@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assigned Assignments</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <header class="bg-gray-800 text-white py-4">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Assign-FS Logo" width="40" height="40" class="mr-2">
+                <h1 class="text-lg font-bold">Assign-FS</h1>
+            </div>
+            <div class="relative">
+                <button id="profileBtn" class="flex items-center focus:outline-none">
+                    <img src="{{ url_for('static', filename='img1.jpg') }}" alt="Profile Image" class="h-8 w-8 rounded-full">
+                </button>
+                <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
+                    <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                    <a href="{{ url_for('logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto my-8">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h1 class="text-2xl font-semibold mb-4">Assigned Assignments</h1>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {% for assignment in assignments %}
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <h2 class="text-lg font-semibold">{{ assignment.name }}</h2>
+                    <p class="text-gray-600 mt-2">Description: {{ assignment.assignment_text }}</p>
+                    <p class="text-gray-500 mt-2">Deadline: {{ assignment.deadline }}</p>
+                    <!-- Add more details as needed -->
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="flex justify-between items-center">
+        <!-- Button to navigate back to the dashboard -->
+        <a href="/dashboard"
+            class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">Go to
+            Dashboard</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const profileBtn = document.getElementById('profileBtn');
+            const profileDropdown = document.getElementById('profileDropdown');
+
+            profileBtn.addEventListener('click', function () {
+                profileDropdown.classList.toggle('hidden');
+            });
+        });
+    </script>
+</body>
+
+</html>
