@@ -8,3 +8,7 @@ MarkupSafe
 pymongo
 Werkzeug
 gunicorn
+pymongo
+nltk
+gensim
+doctr
