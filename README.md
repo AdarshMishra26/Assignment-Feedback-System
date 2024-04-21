@@ -55,8 +55,6 @@ To run the application locally, follow these steps:
 ## Contributors
 
 - [Adarsh Mishra](https://github.com/AdarshMishra26)
-- [Anant Vijay](https://github.com/AnantVijay1606)
-- [VVishnu Pratap](https://github.com/AnantVijay1606)
 
 ## License
 
