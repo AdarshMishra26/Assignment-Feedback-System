@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assign-FS</title>
+    <title>Interactive Academic Portal</title>
     <!-- Include Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="/static/logo.png">
@@ -13,11 +13,10 @@
   width: 120px;
   height: 40px;
   background-color: #000;
- 
+  display: inline-flex;
   align-items: center;
-  color: white;
-  flex-direction: column;
   justify-content: center;
+  color: white;
   border: none;
   padding: 12px;
   gap: 12px;
@@ -63,7 +62,12 @@
   scale: 0.7;
 }
 
-
+.button a {
+  color: white;
+  text-decoration: none;
+  width: 100%;
+  text-align: center;
+}
 
         .bg-custom-gray {
             background-color: #f3f4f6; /* Change to your desired grayish color */
@@ -86,90 +90,318 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better visibility */
         }
 
+        .card {
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(255, 255, 255, 0.95);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .card svg {
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover svg {
+            transform: scale(1.1);
+        }
+
         
     </style>
 </head>
 <body>
     <div class="header-container bg-custom-gray py-4 px-4 md:py-8 md:px-12 flex flex-col md:flex-row justify-between items-center">
-        <!-- Logo and MediConnect name -->
+        <!-- Logo and name update -->
         <div class="flex items-center space-x-4">
-            <img src="{{ url_for('static', filename='logo.png') }}" alt="MediConnect Logo" class="w-12 h-12">
-            <span class="text-black text-lg font-semibold italic underline">Assign-FS</span>
+            <svg class="w-12 h-12" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background Circle -->
+                <circle cx="50" cy="50" r="48" fill="url(#logoGradient)" class="animate-pulse"/>
+                
+                <!-- Book Base -->
+                <path d="M30 35C30 32.2386 32.2386 30 35 30H65C67.7614 30 70 32.2386 70 35V70C70 72.7614 67.7614 75 65 75H35C32.2386 75 30 72.7614 30 70V35Z" 
+                    fill="white" 
+                    class="transform-origin-center animate-float"/>
+                
+                <!-- Book Pages -->
+                <path d="M35 40H65M35 50H65M35 60H55" 
+                    stroke="#4F46E5" 
+                    stroke-width="2.5" 
+                    stroke-linecap="round"/>
+                
+                <!-- Checkmark -->
+                <path d="M45 65L50 70L60 60" 
+                    stroke="#22C55E" 
+                    stroke-width="3" 
+                    stroke-linecap="round" 
+                    stroke-linejoin="round"
+                    class="animate-check"/>
+                
+                <!-- Shield Outline -->
+                <path d="M50 20C60 25 70 25 75 25C75 45 70 60 50 75C30 60 25 45 25 25C30 25 40 25 50 20Z" 
+                    stroke="#4F46E5" 
+                    stroke-width="2" 
+                    fill="none" 
+                    opacity="0.5"/>
+
+                <!-- Gradients -->
+                <defs>
+                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#4F46E5;stop-opacity:0.1" />
+                        <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:0.1" />
+                    </linearGradient>
+                </defs>
+
+                <!-- Animations -->
+                <style>
+                    @keyframes float {
+                        0%, 100% { transform: translateY(0); }
+                        50% { transform: translateY(-2px); }
+                    }
+                    @keyframes check {
+                        from { stroke-dashoffset: 20; }
+                        to { stroke-dashoffset: 0; }
+                    }
+                    .animate-float {
+                        animation: float 3s ease-in-out infinite;
+                    }
+                    .animate-check {
+                        stroke-dasharray: 20;
+                        animation: check 1.5s ease-in-out forwards;
+                    }
+                </style>
+            </svg>
+            <span class="text-black text-xl font-semibold italic">Interactive Academic Portal</span>
         </div>
         <!-- Login, Signup, and About the Developers buttons -->
         <div class="mt-4 md:mt-0 space-x-6">
           <button class="button"><a href="/login" >Login</a></button>
-           <button class="button"><a href="/signup" >Signup</a></button> 
+            <button class="button"><a href="/signup" >Signup</a></button> 
+           <button class="button"><a href="http://127.0.0.1:9000/"  target="_blank" >ChatBot</a></button>
+           <button class="button"><a href="http://127.0.0.1:8000/login"  target="_blank">Resources</a></button>
             
         </div>
     </div>
 
     <!-- Body section -->
     <div class="body-content text-center">
-        <h1 class="text-black font-bold text-3xl md:text-4xl mt-10 md:mt-14 mb-6 md:mb-8">Revolutionizing Academic Integrity with Technology</h1>
-        <p class="text-gray-700 text-lg mb-6 md:mb-8">Welcome to Assign-FS, the innovative platform that transforms the landscape of academic integrity through advanced technology. Our mission is to provide a comprehensive solution for educators and institutions to ensure the authenticity and originality of student assignments.
+        <!-- Hero Section -->
+        <div class="relative overflow-hidden">
+            <!-- Background decoration -->
+            <div class="absolute inset-0 z-0">
+                <div class="absolute top-0 -left-4 w-72 h-72 bg-purple-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                <div class="absolute top-0 -right-4 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+                <div class="absolute -bottom-8 left-20 w-72 h-72 bg-indigo-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+            </div>
 
-            With Assign-FS, educators can now effortlessly check assignments against plagiarism reports, ensuring fairness and upholding academic standards. Our platform integrates seamlessly with existing academic systems, streamlining the process and saving valuable time for educators.</p>
-        <img src="{{ url_for('static', filename='img1.png') }}" alt="MediConnect Image" class="my-8 mx-auto">
+            <!-- Content -->
+            <div class="relative z-10 px-4 py-16 md:py-24">
+                <!-- Main Heading -->
+                <div class="max-w-4xl mx-auto text-center mb-12">
+                    <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+                        <span class="bg-gradient-to-r from-purple-600 to-blue-500 text-transparent bg-clip-text">
+                            Revolutionizing Academic Integrity
+                        </span>
+                        <br/>
+                        <span class="text-gray-900">with Technology</span>
+                    </h1>
+                    
+                    <!-- Animated underline -->
+                    <div class="w-24 h-1 bg-gradient-to-r from-purple-600 to-blue-500 mx-auto mb-8 animate-pulse"></div>
 
-        <!-- Services provided -->
-        <h2 class="text-black font-bold text-2xl md:text-3xl mb-4 md:mb-6">Services We Provide</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-12">
-            <!-- Card 1: Medical Profile -->
-            <div class="card bg-gray-200 p-6 md:p-8 rounded-lg">
-                <h3 class="text-black font-semibold text-lg md:text-xl mb-3 md:mb-4"> Plagiarism Detection</h3>
-                <p class="text-gray-700">At Assign-FS, we offer cutting-edge plagiarism detection services to ensure academic integrity and authenticity. Our advanced algorithm meticulously scans submitted assignments, comparing them against a vast repository of sources to identify any instances of plagiarism. With our comprehensive reports, educators can confidently assess the originality of student work and take appropriate action to uphold academic standards.</p>
-            </div>
-            <!-- Card 2: Emergency Data -->
-            <div class="card bg-gray-200 p-6 md:p-8 rounded-lg">
-                <h3 class="text-black font-semibold text-lg md:text-xl mb-3 md:mb-4">Assignment Feedback and Evaluation</h3>
-                <p class="text-gray-700">We provide a platform for educators to deliver detailed feedback and evaluation on student assignments. With Assign-FS, educators can easily annotate and comment on submitted work, providing valuable insights and guidance to students. Our platform facilitates constructive dialogue between educators and learners, fostering continuous improvement and academic growth</p>
-            </div>
-            <!-- Card 3: Aadhar Integration -->
-            <div class="card bg-gray-200 p-6 md:p-8 rounded-lg">
-                <h3 class="text-black font-semibold text-lg md:text-xl mb-3 md:mb-4"> Secure Data Handling</h3>
-                <p class="text-gray-700">At Assign-FS, we prioritize the security and confidentiality of user data. Our platform employs state-of-the-art encryption protocols and follows stringent privacy standards to ensure that sensitive information remains protected at all times. Users can trust that their data is handled securely, providing peace of mind when using our services.</p>
-            </div>
-            <!-- Card 4: Virtual Consultations -->
-            <div class="card bg-gray-200 p-6 md:p-8 rounded-lg">
-                <h3 class="text-black font-semibold text-lg md:text-xl mb-3 md:mb-4">Customizable Settings and Reporting</h3>
-                <p class="text-gray-700">We understand that every educational institution has unique requirements and preferences when it comes to plagiarism detection and reporting. That's why we offer customizable settings and reporting options to suit the needs of our users. Whether it's adjusting similarity thresholds, selecting specific sources for comparison, or tailoring report formats, Assign-FS empowers educators to customize their experience according to their specific preferences and requirements.</p>
-            </div>
-        </div>
+                    <!-- Subtitle with highlight -->
+                    <p class="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
+                        Welcome to <span class="font-semibold text-purple-600">Interactive Academic Portal</span>, where innovation meets academic excellence.
+                    </p>
+                </div>
 
-        <!-- Section: Saving Lives with Rapid Access to Medical History -->
-        <div class="mt-12 md:mt-16 flex flex-col md:flex-row items-center justify-center md:justify-between">
-            <!-- Text Content -->
-            <div class="md:w-1/2 mb-6 md:mb-0">
-                <h2 class="text-black font-bold text-2xl md:text-3xl mb-4 md:mb-6">Empowering Academic Integrity with Rapid Access to Assignment Information</h2>
-                <p class="text-gray-700 mb-4 md:mb-6">In the academic world, maintaining integrity and authenticity in student assignments is paramount. At Assign-FS, we're committed to harnessing technology to ensure that educators have rapid access to crucial assignment information when evaluating student work. Here are two key ways we're making a difference:</p>
-                <!-- Points with Innovative Arrows -->
-                <div class="flex flex-col md:flex-row items-center mb-4 md:mb-6">
-                    <div class="flex items-center md:mr-6">
-                        <img src="https://img.icons8.com/ios/50/000000/long-arrow-right.png"/>
-                        <p class="ml-2 text-gray-700">Comprehensive Assignment Database</p>
+                <!-- Main description with cards -->
+                <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+                    <div class="bg-white/80 backdrop-blur-lg rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300">
+                        <div class="flex items-start space-x-4 mb-6">
+                            <svg class="w-8 h-8 text-purple-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                            <p class="text-gray-700 text-lg leading-relaxed">
+                                Our mission is to provide a comprehensive solution for educators and institutions to ensure the authenticity and originality of student assignments.
+                            </p>
+                        </div>
                     </div>
-                    <div class="flex items-center mt-2 md:mt-0">
-                        <img src="https://img.icons8.com/ios/50/000000/long-arrow-right.png"/>
-                        <p class="ml-2 text-gray-700">Seamless Integration with Academic Systems</p>
+
+                    <div class="bg-white/80 backdrop-blur-lg rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300">
+                        <div class="flex items-start space-x-4 mb-6">
+                            <svg class="w-8 h-8 text-blue-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            <p class="text-gray-700 text-lg leading-relaxed">
+                                Effortlessly check assignments against plagiarism reports, ensuring fairness and upholding academic standards with our seamless integration.
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <!-- Read More Button -->
-                <button class="bg-yellow-400 px-6 py-2 md:px-8 md:py-3 rounded hover:bg-yellow-500">Read More</button>
-            </div>
-            <!-- Image -->
-            <div class="md:w-1/2 mb-6">
-                <img src="{{ url_for('static', filename='img2.png') }}" alt="MediConnect Image 2">
             </div>
         </div>
 
-        <button class="button"><a href="/developer">About US</a></button>
+        <!-- Services provided -->
+        <h2 class="text-black font-bold text-2xl md:text-3xl mb-8 md:mb-12">
+            <span class="bg-gradient-to-r from-purple-600 to-blue-500 text-transparent bg-clip-text">Our Services</span>
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+            <!-- Card 1: Plagiarism Detection -->
+            <div class="card bg-white p-6 md:p-8 rounded-xl hover:shadow-xl transition-all duration-300 border border-gray-100">
+                <div class="flex flex-col items-center">
+                    <svg class="w-16 h-16 mb-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <h3 class="text-black font-bold text-xl mb-4">Plagiarism Detection</h3>
+                    <p class="text-gray-600 text-center">Our advanced algorithm meticulously scans submitted assignments, comparing them against a vast repository of sources to identify any instances of plagiarism.</p>
+                </div>
+            </div>
+
+            <!-- Card 2: Assignment Feedback -->
+            <div class="card bg-white p-6 md:p-8 rounded-xl hover:shadow-xl transition-all duration-300 border border-gray-100">
+                <div class="flex flex-col items-center">
+                    <svg class="w-16 h-16 mb-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+                    </svg>
+                    <h3 class="text-black font-bold text-xl mb-4">Assignment Feedback</h3>
+                    <p class="text-gray-600 text-center">Educators can easily annotate and comment on submitted work, providing valuable insights and guidance to students for continuous improvement.</p>
+                </div>
+            </div>
+
+            <!-- Card 3: Secure Data -->
+            <div class="card bg-white p-6 md:p-8 rounded-xl hover:shadow-xl transition-all duration-300 border border-gray-100">
+                <div class="flex flex-col items-center">
+                    <svg class="w-16 h-16 mb-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                    <h3 class="text-black font-bold text-xl mb-4">Secure Data Handling</h3>
+                    <p class="text-gray-600 text-center">Our platform employs state-of-the-art encryption protocols and follows stringent privacy standards to ensure data security.</p>
+                </div>
+            </div>
+
+            <!-- Card 4: Customizable Settings -->
+            <div class="card bg-white p-6 md:p-8 rounded-xl hover:shadow-xl transition-all duration-300 border border-gray-100">
+                <div class="flex flex-col items-center">
+                    <svg class="w-16 h-16 mb-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <h3 class="text-black font-bold text-xl mb-4">Customizable Settings</h3>
+                    <p class="text-gray-600 text-center">Tailor the platform to your needs with adjustable similarity thresholds, source selection, and customizable report formats.</p>
+                </div>
+            </div>
         </div>
-        
+
+        <!-- Features Section with Modern Design -->
+        <div class="mt-16 md:mt-24 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-8 md:p-12">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+                <!-- Text Content -->
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-blue-500 text-transparent bg-clip-text">
+                        Empowering Academic Integrity
+                    </h2>
+                    
+                    <p class="text-gray-700 mb-8 text-lg">
+                        In the academic world, maintaining integrity and authenticity in student assignments is paramount. Our platform provides:
+                    </p>
+
+                    <!-- Feature Points with Modern Icons -->
+                    <div class="space-y-6">
+                        <!-- Feature 1 -->
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0">
+                                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 mb-1">Comprehensive Assignment Database</h3>
+                                <p class="text-gray-600">Access to a vast repository of academic resources and previous submissions</p>
+                            </div>
+                        </div>
+
+                        <!-- Feature 2 -->
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 mb-1">Real-time Analysis</h3>
+                                <p class="text-gray-600">Instant plagiarism detection and similarity checking</p>
+                            </div>
+                        </div>
+
+                        <!-- Feature 3 -->
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0">
+                                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 mb-1">Seamless Integration</h3>
+                                <p class="text-gray-600">Works perfectly with existing academic management systems</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTA Button -->
+                    <button class="mt-8 px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-500 text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                        Learn More
+                        <svg class="w-5 h-5 inline-block ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Image Section with Animation -->
+                <div class="md:w-1/2 relative">
+                    <div class="relative">
+                        <!-- Main Image -->
+                        <img 
+                            src="{{ url_for('static', filename='img2.png') }}" 
+                            alt="Academic Portal Features" 
+                            class="rounded-xl shadow-2xl transform transition-transform duration-500 hover:scale-105"
+                        >
+                        
+                        <!-- Decorative Elements -->
+                        <div class="absolute -top-4 -right-4 w-24 h-24 bg-purple-100 rounded-full opacity-50"></div>
+                        <div class="absolute -bottom-4 -left-4 w-32 h-32 bg-blue-100 rounded-full opacity-50"></div>
+                        
+                        <!-- Stats Card -->
+                        <div class="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-xl">
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                </svg>
+                                <div>
+                                    <p class="text-sm text-gray-600">Success Rate</p>
+                                    <p class="text-lg font-bold text-purple-600">99.9%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Us Button Section - Fixed positioning -->
+        <div class="flex justify-center mt-12 mb-8"> <!-- Added proper margin and centering -->
+            <button class="button">
+                <a href="/developer">About US</a>
+            </button>
+        </div>
 
         <!-- Footer -->
         <footer class="bg-custom-gray text-center py-4 mt-8">
-            <p>@2024 | All Right Reserved | Assign-FS</p>
+            <p>@2024 | All Right Reserved | Interactive Academic Portal</p>
         </footer>
     </div>
 </body>
